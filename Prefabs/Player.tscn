@@ -1,21 +1,25 @@
 [gd_scene load_steps=5 format=3 uid="uid://d13gl0uaqi8hl"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_qymq3"]
-[ext_resource type="Texture2D" uid="uid://c57tnyefbqid2" path="res://ArtSource/CatAnim.png" id="2_cnw5k"]
-[ext_resource type="Texture2D" uid="uid://dpii7obvoxlbm" path="res://ArtSource/CatDown.png" id="2_v873a"]
+[ext_resource type="Texture2D" uid="uid://b7l33kn5e870o" path="res://Image/CatDown.png" id="2_jj5wo"]
+[ext_resource type="Texture2D" uid="uid://cp6wya0imbg6t" path="res://Image/Cat.png" id="3_lcnc7"]
 [ext_resource type="Script" path="res://Scripts/AnimSprite2D.gd" id="3_s4kn0"]
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("stateRunning", "stateDown")]
 script = ExtResource("1_qymq3")
+stateRunning = NodePath("Running")
+stateDown = NodePath("Down")
 
 [node name="Down" type="Sprite2D" parent="."]
 visible = false
+texture_filter = 1
 position = Vector2(0, 4)
-texture = ExtResource("2_v873a")
+texture = ExtResource("2_jj5wo")
 
 [node name="Running" type="Sprite2D" parent="."]
-texture = ExtResource("2_cnw5k")
+texture_filter = 1
+texture = ExtResource("3_lcnc7")
 vframes = 4
-frame = 1
+frame = 3
 script = ExtResource("3_s4kn0")
 playSpeed = 10

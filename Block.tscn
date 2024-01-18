@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://be7mmbcyt7oad"]
-
-[ext_resource type="Texture2D" uid="uid://c57tnyefbqid2" path="res://ArtSource/CatAnim.png" id="1_ceuno"]
-
-[node name="Block" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ceuno")
-vframes = 4

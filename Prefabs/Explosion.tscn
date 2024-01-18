@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://xrponq5qri5k"]
+
+[ext_resource type="Texture2D" uid="uid://1yx81t26681s" path="res://Image/Explosion.png" id="2_g0b0v"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhgd1"]
+particles_animation = true
+particles_anim_h_frames = 14
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1huav"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 30.04
+angle_min = -456.0
+angle_max = 343.5
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 2.0
+anim_speed_max = 4.0
+
+[sub_resource type="Curve" id="Curve_dd21c"]
+_data = [Vector2(0, 0.992308), 0.0, 0.0, 0, 0, Vector2(0.675676, 0.838462), 0.0, 0.0, 0, 0, Vector2(1, 0.0307692), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lmkay"]
+curve = SubResource("Curve_dd21c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pg0do"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(1, 111, 0)
+spread = 75.0
+initial_velocity_min = 272.23
+initial_velocity_max = 544.45
+gravity = Vector3(0, 98, 0)
+scale_min = 4.0
+scale_max = 4.0
+color = Color(0.960784, 0.745098, 0.403922, 1)
+alpha_curve = SubResource("CurveTexture_lmkay")
+
+[node name="Explosion" type="Node2D"]
+
+[node name="FireBall" type="GPUParticles2D" parent="."]
+texture_filter = 3
+material = SubResource("CanvasItemMaterial_yhgd1")
+position = Vector2(0, -25)
+emitting = false
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_1huav")
+texture = ExtResource("2_g0b0v")
+one_shot = true
+preprocess = 0.5
+explosiveness = 0.89
+
+[node name="Spark" type="GPUParticles2D" parent="."]
+rotation = 3.14159
+emitting = false
+amount = 55
+process_material = SubResource("ParticleProcessMaterial_pg0do")
+one_shot = true
+explosiveness = 0.7
