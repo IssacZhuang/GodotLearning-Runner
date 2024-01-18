@@ -13,13 +13,14 @@ stateDown = NodePath("Down")
 [node name="Down" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-position = Vector2(0, 4)
+position = Vector2(0, -27)
 texture = ExtResource("2_jj5wo")
 
 [node name="Running" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, -31)
 texture = ExtResource("3_lcnc7")
 vframes = 4
-frame = 3
+frame = 2
 script = ExtResource("3_s4kn0")
 playSpeed = 10

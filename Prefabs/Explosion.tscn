@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://xrponq5qri5k"]
+[gd_scene load_steps=8 format=3 uid="uid://xrponq5qri5k"]
 
+[ext_resource type="Script" path="res://Scripts/ParticleAutoPlay.gd" id="1_n0rju"]
 [ext_resource type="Texture2D" uid="uid://1yx81t26681s" path="res://Image/Explosion.png" id="2_g0b0v"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yhgd1"]
@@ -44,6 +45,7 @@ color = Color(0.960784, 0.745098, 0.403922, 1)
 alpha_curve = SubResource("CurveTexture_lmkay")
 
 [node name="Explosion" type="Node2D"]
+script = ExtResource("1_n0rju")
 
 [node name="FireBall" type="GPUParticles2D" parent="."]
 texture_filter = 3

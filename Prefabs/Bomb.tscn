@@ -8,6 +8,7 @@
 
 [node name="Bomb" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, -22)
 texture = ExtResource("1_rv8ku")
 hframes = 2
 frame = 1
@@ -16,9 +17,9 @@ playSpeed = 3
 
 [node name="Fire" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -38)
+position = Vector2(0, -61)
 texture = ExtResource("3_6shk2")
 hframes = 8
-frame = 4
+frame = 5
 script = ExtResource("2_0rsdf")
 playSpeed = 16

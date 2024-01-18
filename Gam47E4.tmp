@@ -12,21 +12,20 @@ player = NodePath("Player")
 camera = NodePath("Camera")
 bomb = ExtResource("2_doqx6")
 explosion = ExtResource("3_jyb3h")
-playerInitialSpeed = 300.0
-playerSpeedAcceleration = 1.0
-playerJumpHeight = 400.0
+playerJumpHeight = 300.0
 playerJumpDuration = 0.7
 shakeSpring = 1500.0
 shakeMultiplier = 40.0
-BombMinSpawnDistance = 300.0
-BombMaxSpawnDistance = 1200.0
 
 [node name="Camera" type="Camera2D" parent="."]
 texture_filter = 1
-position = Vector2(0, -133)
 
 [node name="Sprite2D" type="Sprite2D" parent="Camera"]
 visible = false
 texture = ExtResource("4_k712i")
 
 [node name="Player" parent="." instance=ExtResource("4_nv60v")]
+position = Vector2(0, 128)
+
+[node name="Explosion" parent="." instance=ExtResource("3_jyb3h")]
+visible = false
