@@ -1,4 +1,5 @@
 extends Node2D
+class_name ParticleGroupEmit
 
 # GPU particles array
 var  particles : Array[GPUParticles2D]
@@ -9,7 +10,11 @@ func _ready():
 		if child is GPUParticles2D:
 			particles.append(child)
 	
-	print(particles.size())
+	
+	
+	pass
+	
+func Emit():
 	#play 
 	for p in particles:
 		p.emitting = true

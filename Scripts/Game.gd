@@ -41,6 +41,9 @@ var bombNextSpawnPosition: float
 var bombs: Array[Node2D]
 var bombsPendingRemove: Array[Node2D]
 
+#explosion instance
+var explosionInt: ParticleGroupEmit
+
 #game state
 var timer: float
 var isPlaying: bool
@@ -53,10 +56,14 @@ var random: RandomNumberGenerator
 func _ready():
 	random = RandomNumberGenerator.new()
 	initialCameraHeight= camera.position.y
+	
+	explosionInt = explosion.instantiate() as ParticleGroupEmit
+	player.add_child(explosionInt)
 	StartGame()
 	pass
+	
 
-func _process(delta):
+func _physics_process(delta):
 	timer += delta
 	
 	UpdateCamera(delta)
@@ -90,8 +97,9 @@ func StartGame():
 	
 func GameOver():
 	player.state = player.PlayerState.Down
-	SpawnExplosion(player.position)
+	player.position.y = 0
 	ShakeCamera(50)
+	explosionInt.Emit()
 	isPlaying = false
 	
 
@@ -113,12 +121,6 @@ func SpawnBomb():
 	var instance = bomb.instantiate() as Node2D
 	instance.position.x = spawnPosition
 	bombs.push_back(instance)
-	add_child(instance)
-
-func SpawnExplosion(pos:Vector2):
-	print("explosion spawned")
-	var instance = explosion.instantiate() as Node2D
-	instance.position = pos
 	add_child(instance)
 	
 #update 
