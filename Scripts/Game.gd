@@ -4,6 +4,12 @@ class_name Game
 #scene object
 @export var player: Player
 @export var camera: Node2D
+@export var ground: Node2D
+
+#ui
+@export var btnPlay:BaseButton
+@export var btnReset:BaseButton
+@export var txtScore: Label
 
 #prefab
 @export var bomb: PackedScene
@@ -46,6 +52,7 @@ var explosionInt: ParticleGroupEmit
 
 #game state
 var timer: float
+var score: float
 var isPlaying: bool
 
 #tool
@@ -59,16 +66,22 @@ func _ready():
 	
 	explosionInt = explosion.instantiate() as ParticleGroupEmit
 	player.add_child(explosionInt)
-	StartGame()
+	btnReset.hide()
+	#StartGame()
+		
 	pass
-	
+
 
 func _physics_process(delta):
 	timer += delta
 	
+	
 	UpdateCamera(delta)
 	if !isPlaying:
 		return
+		
+	score += delta
+	txtScore.text = str(floor(score))
 	
 	UpdatePlayer(delta)
 	UpdateBomb(delta)
@@ -89,18 +102,24 @@ func _unhandled_key_input(event):
 #action
 
 func StartGame():
+	print("Game Start")
 	timer = 0
+	score = 0
 	isPlaying = true
 	player.state = player.PlayerState.Running
 	playerSpeed = playerInitialSpeed
 	playerJumpTime = -playerJumpDuration
+	btnPlay.hide()
+	btnReset.hide()
 	
 func GameOver():
+	print("Game Over")
 	player.state = player.PlayerState.Down
 	player.position.y = 0
 	ShakeCamera(50)
 	explosionInt.Emit()
 	isPlaying = false
+	btnReset.show()
 	
 
 func PlayerJump():
@@ -135,6 +154,7 @@ func UpdateCamera(delta: float):
 	
 	#follow player
 	camera.position.x = player.position.x + shake.x
+	ground.position.x = player.position.x
 	pass
 
 func UpdatePlayer(delta: float):

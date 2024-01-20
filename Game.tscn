@@ -1,15 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://vnsku074bp3b"]
+[gd_scene load_steps=14 format=3 uid="uid://vnsku074bp3b"]
 
 [ext_resource type="Script" path="res://Scripts/Game.gd" id="1_vdcoe"]
 [ext_resource type="PackedScene" uid="uid://cn5b7pa0s8tva" path="res://Prefabs/Bomb.tscn" id="2_doqx6"]
 [ext_resource type="PackedScene" uid="uid://xrponq5qri5k" path="res://Prefabs/Explosion.tscn" id="3_jyb3h"]
-[ext_resource type="Texture2D" uid="uid://ch2g0hw3es8co" path="res://Image/Background.png" id="4_k712i"]
 [ext_resource type="PackedScene" uid="uid://d13gl0uaqi8hl" path="res://Prefabs/Player.tscn" id="4_nv60v"]
+[ext_resource type="Shader" path="res://Shaders/CanvasColor.gdshader" id="5_6iip6"]
+[ext_resource type="Texture2D" uid="uid://djthpk3jncu1t" path="res://Image/Test128.png" id="5_u0ic8"]
+[ext_resource type="Texture2D" uid="uid://dm3lcgtruxh10" path="res://Image/ButtonPlay.png" id="6_vcf4p"]
+[ext_resource type="Texture2D" uid="uid://wbsqyhll4ssa" path="res://Image/ButtonPlayPressed.png" id="7_3h14m"]
+[ext_resource type="Texture2D" uid="uid://d2b3etfq100m7" path="res://Image/ButtonReset.png" id="8_ufqyh"]
+[ext_resource type="Texture2D" uid="uid://bnrvbtlphppq3" path="res://Image/ButtonResetPressed.png" id="9_o86ss"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("player", "camera")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pxxg"]
+shader = ExtResource("5_6iip6")
+shader_parameter/Color = Color(0.560784, 0.639216, 0.760784, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4jfk"]
+font_size = 32
+font_color = Color(0.886275, 1, 0.87451, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dht8n"]
+shader = ExtResource("5_6iip6")
+shader_parameter/Color = Color(0.364706, 0.435294, 0.560784, 1)
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("player", "camera", "ground", "btnPlay", "btnReset", "txtScore")]
 script = ExtResource("1_vdcoe")
 player = NodePath("Player")
 camera = NodePath("Camera")
+ground = NodePath("Ground")
+btnPlay = NodePath("Camera/UI/BtnPlay")
+btnReset = NodePath("Camera/UI/BtnReset")
+txtScore = NodePath("Camera/UI/Score")
 bomb = ExtResource("2_doqx6")
 explosion = ExtResource("3_jyb3h")
 playerInitialSpeed = 300.0
@@ -26,8 +47,77 @@ BombHitRange = 48.0
 texture_filter = 1
 position = Vector2(0, -133)
 
-[node name="Sprite2D" type="Sprite2D" parent="Camera"]
-visible = false
-texture = ExtResource("4_k712i")
+[node name="Bg" type="Sprite2D" parent="Camera"]
+material = SubResource("ShaderMaterial_6pxxg")
+position = Vector2(0, 121)
+scale = Vector2(3, 3)
+texture = ExtResource("5_u0ic8")
+
+[node name="UI" type="Control" parent="Camera"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnPlay" type="TextureButton" parent="Camera/UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -66.0
+offset_right = 48.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("6_vcf4p")
+texture_pressed = ExtResource("7_3h14m")
+
+[node name="BtnReset" type="TextureButton" parent="Camera/UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -66.0
+offset_right = 48.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("8_ufqyh")
+texture_pressed = ExtResource("9_o86ss")
+
+[node name="Score" type="Label" parent="Camera/UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -164.0
+offset_right = 64.0
+offset_bottom = -119.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_s4jfk")
+horizontal_alignment = 1
+
+[node name="Ground" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_dht8n")
+position = Vector2(0, 255)
+scale = Vector2(3, 2)
+texture = ExtResource("5_u0ic8")
 
 [node name="Player" parent="." instance=ExtResource("4_nv60v")]
+
+[connection signal="pressed" from="Camera/UI/BtnPlay" to="." method="StartGame"]
+[connection signal="pressed" from="Camera/UI/BtnReset" to="." method="StartGame"]
